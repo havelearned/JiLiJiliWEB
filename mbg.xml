@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+    PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+    "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="DB2Tables"  targetRuntime="MyBatis3">
+    <commentGenerator>
+      <!--生成没有注释文件-->
+      <property name="suppressAllComments" value="true"/>
+    </commentGenerator>
+
+    <!-- 配置数据库连接 -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                    connectionURL="jdbc:mysql://localhost:3306/DDSP_DB" userId="root"
+                    password="3333">
+    </jdbcConnection>
+    <javaTypeResolver>
+      <property name="forceBigDecimals" value="false"/>
+    </javaTypeResolver>
+    <!-- 生成模型的包名和位置-->
+    <javaModelGenerator targetPackage="com.yinghua.application.pojo" targetProject=".\src\main\java">
+      <property name="enableSubPackages" value="true"/>
+      <property name="trimStrings" value="true"/>
+    </javaModelGenerator>
+    <!-- 生成映射文件的包名和位置-->
+    <sqlMapGenerator targetPackage="mapper" targetProject=".\src\main\resources">
+      <property name="enableSubPackages" value="true"/>
+    </sqlMapGenerator>
+    <!-- 生成DAO的包名和位置-->
+    <javaClientGenerator type="XMLMAPPER"
+                         targetPackage="com.yinghua.application.mapper" targetProject=".\src\main\java">
+      <property name="enableSubPackages" value="true"/>
+    </javaClientGenerator>
+    <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
+    <table tableName="d_ticket" domainObjectName="Ticket" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="d_movies" domainObjectName="Movies" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="d_cinema" domainObjectName="Cinema" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="d_orderforgoods" domainObjectName="Orderforgoods" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="d_root" domainObjectName="Root" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+  </context>
+</generatorConfiguration>

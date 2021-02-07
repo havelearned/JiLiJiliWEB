@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}"   rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
+
+<body>
+<!--将抽取的片段插入-->
+<div th:replace="~{heandl/bar::#bar-hand}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div  th:replace="~{heandl/bar::#leftlist(activeUri='movie')}"></div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <form action="#" th:action="@{/movie/Addthefilm}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_method" value="PUT" />
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1"><strong style="color: red">*</strong> 电影封面</label>
+                    <input name="fengmian" type="file" class="form-control" id="FileMain" placeholder="电影封面">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1"></label>
+                    <strong style="color: red">*</strong><input name="dingyingmingcheng" type="text" class="form-control" onblur="onBuexampleFormControlInput1()" id="exampleFormControlInput1" placeholder="电影名称">
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong style="color: red">*</strong>
+                            <input type="text" class="form-control" id="director"  onblur="onBuDirector()" placeholder="导演" name="daoyuan"></li>
+                        <li class="list-group-item"><strong style="color: red">*</strong>
+                            <input type="text" class="form-control" id="protagonist" onblur="onBuprotagonist()" placeholder="主演" name="zhuyuan"></li>
+                        <li class="list-group-item"><strong style="color: red">*</strong>
+                            <input type="text" class="form-control" id="support" onblur="onBusupport()" placeholder="配角" name="peijiao"></li>
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">其他人员</label>
+                                <textarea  name="qita" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="输入名字即可，使用逗号分隔 如：周杰伦，罗贯中，... 系统自动排版"></textarea>
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label ><strong style="color: red">*</strong>上映日期</label>
+                    <input type="datetime-local" name="shangyingshijian" onblur="onBushangyingshijian()" class="form-control" id="releasedate">
+                    <label >下架日期 <strong/>可不填</label>
+                    <input type="datetime-local" name="xiajiashijian" class="form-control" id="Dateoftheshelves">
+                </div>
+                <br><br>
+                <div class="btn-group "  role="group" aria-label="Basic example">
+                    <button type="submit" class="btn btn-outline-primary">马上添加</button>
+                    <button type="submit"  class="btn btn-outline-info">定时添加</button>
+                    <button type="submit"  class="btn btn-outline-secondary">取消添加</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"></script>
+<script type="text/javascript" src="asserts/js/popper.min.js"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js"></script>
+
+<!-- Icons -->
+<script type="text/javascript" src="asserts/js/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+
+<!-- Graphs -->
+<script type="text/javascript" src="asserts/js/Chart.min.js"></script>
+<script>
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            datasets: [{
+                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                lineTension: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#007bff',
+                borderWidth: 4,
+                pointBackgroundColor: '#007bff'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            },
+            legend: {
+                display: false,
+            }
+        }
+    });
+
+    /*
+        导演
+     */
+    function onBuDirector() {
+        let director = document.getElementById("director").value;
+        let prm;
+        if(director.length>20){
+            prm=prompt("字符过长重新输入：",director);
+            document.getElementById("director").value=prm;
+        }
+    }
+
+    /*电影*/
+    function onBuexampleFormControlInput1() {
+        let exampleFormControlInput1 = document.getElementById("exampleFormControlInput1").value;
+        let prm;
+        if(exampleFormControlInput1.length>50){
+            prm=prompt("字符过长重新输入：",exampleFormControlInput1);
+            document.getElementById("exampleFormControlInput1").value=prm;
+        }
+    }
+
+
+
+    /*主演*/
+    function onBuprotagonist() {
+        let protagonist = document.getElementById("protagonist").value;
+        let prm;
+        if(protagonist.length>20){
+            prm=prompt("字符过长重新输入：",protagonist);
+            document.getElementById("protagonist").value=prm;
+        }
+    }
+
+    //配角
+    function onBusupport() {
+        let support = document.getElementById("support").value;
+        let prm;
+        if(support.length>20){
+            prm=prompt("字符过长重新输入：",support);
+            document.getElementById("support").value=prm;
+        }
+    }
+
+    /**
+     *
+     *上映时间
+     */
+    function onBushangyingshijian() {
+        let shangyingshijian = document.getElementById("shangyingshijian");
+        console.log(shangyingshijian)
+
+    }
+
+    // xiajiashijian
+
+
+
+</script>
+
+</body>
+
+</html>

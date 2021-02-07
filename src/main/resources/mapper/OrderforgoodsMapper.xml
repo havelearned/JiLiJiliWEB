@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yinghua.application.mapper.OrderforgoodsMapper">
+  <resultMap id="BaseResultMap" type="com.yinghua.application.pojo.Orderforgoods">
+    <result column="O_ID" jdbcType="CHAR" property="oId" />
+    <result column="O_TID" jdbcType="INTEGER" property="oTid" />
+    <result column="O_MID" jdbcType="INTEGER" property="oMid" />
+    <result column="O_CID" jdbcType="INTEGER" property="oCid" />
+    <result column="O_TPhone" jdbcType="VARCHAR" property="oTphone" />
+    <result column="O_TCard" jdbcType="VARCHAR" property="oTcard" />
+    <result column="O_MMovie_name" jdbcType="VARCHAR" property="oMmovieName" />
+    <result column="O_CSeatNumber" jdbcType="VARCHAR" property="oCseatnumber" />
+    <result column="o_T_nickname" jdbcType="VARCHAR" property="oTnickname" />
+    <result column="O_Bookingdate" jdbcType="TIMESTAMP" property="oBookingdate" />
+    <result column="O_expire" jdbcType="TIMESTAMP" property="oExpire" />
+    <result column="O_start_time" jdbcType="TIMESTAMP" property="oStartTime" />
+  </resultMap>
+
+  <delete id="deleteOrderById" parameterType="java.lang.String">
+    delete from d_orderforgoods where O_ID=#{oId}
+  </delete>
+
+  <select id="selectOrders" resultMap="BaseResultMap" >
+    select * from d_orderforgoods
+  </select>
+
+
+  <select id="selectOrderByid" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from d_orderforgoods where O_ID=#{oId}
+  </select>
+
+
+  <insert id="insert" parameterType="com.yinghua.application.pojo.Orderforgoods">
+    insert into d_orderforgoods (O_ID, O_TID, O_MID, 
+      O_CID, O_TPhone, O_TCard, 
+      O_MMovie_name,o_T_nickname, O_CSeatNumber, O_Bookingdate,
+      O_expire, O_start_time)
+    values (#{oId,jdbcType=CHAR}, #{oTid,jdbcType=INTEGER}, #{oMid,jdbcType=INTEGER}, 
+      #{oCid,jdbcType=INTEGER}, #{oTphone,jdbcType=VARCHAR}, #{oTcard,jdbcType=VARCHAR}, 
+      #{oMmovieName,jdbcType=VARCHAR},#{oTnickname,jdbcType=VARCHAR}, #{oCseatnumber,jdbcType=VARCHAR}, #{oBookingdate,jdbcType=TIMESTAMP},
+      #{oExpire,jdbcType=TIMESTAMP}, #{oStartTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yinghua.application.pojo.Orderforgoods">
+    insert into d_orderforgoods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oId != null">
+        O_ID,
+      </if>
+      <if test="oTid != null">
+        O_TID,
+      </if>
+      <if test="oMid != null">
+        O_MID,
+      </if>
+      <if test="oCid != null">
+        O_CID,
+      </if>
+      <if test="oTphone != null">
+        O_TPhone,
+      </if>
+      <if test="oTcard != null">
+        O_TCard,
+      </if>
+      <if test="oMmovieName != null">
+        O_MMovie_name,
+      </if>
+      <if test="oTnickname != null">
+        o_T_nickname,
+      </if>
+      <if test="oCseatnumber != null">
+        O_CSeatNumber,
+      </if>
+      <if test="oBookingdate != null">
+        O_Bookingdate,
+      </if>
+      <if test="oExpire != null">
+        O_expire,
+      </if>
+      <if test="oStartTime != null">
+        O_start_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oId != null">
+        #{oId,jdbcType=CHAR},
+      </if>
+      <if test="oTid != null">
+        #{oTid,jdbcType=INTEGER},
+      </if>
+      <if test="oMid != null">
+        #{oMid,jdbcType=INTEGER},
+      </if>
+      <if test="oCid != null">
+        #{oCid,jdbcType=INTEGER},
+      </if>
+      <if test="oTphone != null">
+        #{oTphone,jdbcType=VARCHAR},
+      </if>
+      <if test="oTcard != null">
+        #{oTcard,jdbcType=VARCHAR},
+      </if>
+      <if test="oMmovieName != null">
+        #{oMmovieName,jdbcType=VARCHAR},
+      </if>
+        <if test="oTnickname != null">
+          #{oTnicknamejdbcType=VARCHAR},
+        </if>
+      <if test="oCseatnumber != null">
+        #{oCseatnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="oBookingdate != null">
+        #{oBookingdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oExpire != null">
+        #{oExpire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oStartTime != null">
+        #{oStartTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

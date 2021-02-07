@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" th:replace="~{heandl/bar::#bar-hand}">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">Company
+        name</a>
+    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="#" th:href="@{/login.html}">退出登录</a>
+        </li>
+    </ul>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+
+      <div th:replace="~{heandl/bar::#leftlist(activeUri='main.html')}"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="chartjs-size-monitor"
+                 style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                <div class="chartjs-size-monitor-expand"
+                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                    <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                </div>
+                <div class="chartjs-size-monitor-shrink"
+                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                    <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">电影院列表</h1>
+                <form th:action="@{/Filmstatistics}" method="get">
+                    <select name="cinameId"  >
+                        <option >请选择</option>
+                        <option th:each="ciname:${cinemas}" th:value="${ciname.getcId()}" th:text="${ciname.getcCname()}">albb</option>
+                    </select>
+                    <input type="submit" value="查找" />
+                </form>
+               <!-- <form action="/Filmstatistics" th:action="@{Filmstatistics/}" id="selectCinemaForm" method="get">
+                    <select class="form-control" style="width: 17%;" onchange="submintForm()" name="cinameId" >
+                            <option  th:value="1"  th:text="albb" selected></option>
+                            <option th:each="ciname:${cinemas}"  th:value="${ciname.cId}" th:text="${ciname.getcCname()}" ></option>
+                    </select>
+                </form>-->
+
+
+
+
+
+            </div>
+
+            <canvas class="my-4 chartjs-render-monitor" id="myChart" width="1076" height="454"
+                    style="display: block; width: 1076px; height: 454px;"></canvas>
+
+            <table class="table table-condensed">
+                <!-- On rows -->
+                <tr class="active"></tr>
+                <tr class="success"></tr>
+                <tr class="warning"></tr>
+                <tr class="danger"></tr>
+                <tr class="info"></tr>
+
+                <!-- On cells (`td` or `th`) -->
+                <tr>
+                    <td class="active">影院名称</td>
+                    <td class="info">本周累计入场人数</td>
+                    <td class="success">本周播放最多影片</td>
+                    <td class="warning">本周累计入场人数</td>
+                    <td class="danger">本周累计售出票数</td>
+                </tr>
+                <tr th:each="ciname:${cinemas}" >
+
+                </tr>
+            </table>
+        </main>
+
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"
+        th:src="@{/asserts/js/jquery-3.2.1.slim.min.js}"></script>
+<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+
+<!-- Icons -->
+<script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
+<script>
+    feather.replace()
+</script>
+
+<!-- Graphs -->
+<script type="text/javascript" src="asserts/js/Chart.min.js" th:src="@{/asserts/js/Chart.min.js}"></script>
+<script>
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期天"],
+            datasets: [{
+                data: [14562, 13454, 15678, 12678, 30233, 50986, 12034],
+                lineTension: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#ff003b',
+                borderWidth: 4,
+                pointBackgroundColor: '#ff00aa'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            },
+            legend: {
+                display: false,
+            }
+        }
+    });
+    function submintForm(){
+        var form = document.getElementById("selectCinemaForm");
+        form.submit();
+    }
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" th:replace="~{heandl/bar::#bar-hand}">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">Company
+        name</a>
+    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">Sign out</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="~{heandl/bar::#leftlist(activeUri='report')}"
+             class="col-md-2 d-none d-md-block bg-light sidebar">
+        </nav>
+
+        <div class="container">
+        <hr>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="chartjs-size-monitor"
+                 style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                <div class="chartjs-size-monitor-expand"
+                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                    <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                </div>
+                <div class="chartjs-size-monitor-shrink"
+                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                    <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+
+                <div class="input-group flex-nowrap">
+                    <div class="input-group-prepend">
+
+                    </div>
+                    <svg t="1608626904525" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                         xmlns="http://www.w3.org/2000/svg" p-id="1183" width="30" height="30">
+                        <path d="M989.713353 413.605871H830.091457a31.924379 31.924379 0 0 0 0 63.848758h127.697517V958.235779H63.906358V477.454629h127.697517a31.924379 31.924379 0 0 0 0-63.848758H31.981979A31.924379 31.924379 0 0 0 0.0576 447.445713v544.629908a31.924379 31.924379 0 0 0 31.924379 31.924379h957.731374a31.924379 31.924379 0 0 0 31.924379-31.924379V447.445713a31.924379 31.924379 0 0 0-31.924379-33.839842z"
+                              fill="#14ADC4" p-id="1184"></path>
+                        <path d="M533.194731 9.443231a31.924379 31.924379 0 0 0-45.332618 0L247.790782 250.15305a31.924379 31.924379 0 1 0 45.332618 45.332618L478.923287 109.047294v686.374151a31.924379 31.924379 0 0 0 63.848758 0V109.047294l186.438374 186.438374a31.924379 31.924379 0 1 0 45.332619-45.332618z"
+                              fill="#14ADC4" p-id="1185"></path>
+                    </svg>
+                    <input type="text" th:value="${success}" class="form-control" placeholder="导出位置"
+                           aria-label="Username" aria-describedby="addon-wrapping">
+
+                </div>
+                <div class="btn-group mr-2">
+                    <button class="btn btn-sm btn-outline-secondary"><a href="" th:href="@{/report/createexcel1}">导出购票者信息</a>
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary"><a href=""
+                                                                        th:href="@{/report/createexcel2}">导出影片信息</a>
+                    </button>
+
+                </div>
+            </div>
+        </main>
+
+        <div class="centerBox rounded text-white-50">
+            <div class="btn-toolbar mb-2 mb-md-0">
+
+                <!--<button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-calendar">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    This week
+                </button>-->
+            </div>
+            <br>
+
+        </div>
+
+    </div>
+    <hr>
+
+</div>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <div class="container">
+                <form action="" method="post" th:action="@{/upload}" enctype="multipart/form-data">
+
+                    <button class="btn  btn-sm btn-outline-secondary" type="submit">上传</button>
+                    <button class="btn  btn-sm btn-outline-secondary" type="button"><a th:href="@{/download}">下载日志</a>
+                    </button>
+                    <span class="input-group-text" id="addon-wrapping"><input type="file" name="file"/>
+                </span>
+                </form>
+                <br>
+                <form action="#" method="post" th:action="@{/importexcel}" enctype="multipart/form-data">
+                    <button class="btn  btn-sm btn-outline-secondary" type="submit">导入Excel(未完善)</button>
+                    <br>
+                    <input type="file" name="imExcel" class="btn btn-sm btn-outline-secondary">
+                </form>
+                <br>
+            </div>
+
+            <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                <a href="http://jilijili.fun">门户</a>
+            </button>
+        </div>
+
+    </div>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"
+        th:src="@{/asserts/js/jquery-3.2.1.slim.min.js}"></script>
+<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+<!-- Icons -->
+<script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
+<script>
+    feather.replace()
+</script>
+<!-- Graphs -->
+<script type="text/javascript" src="asserts/js/Chart.min.js" th:src="@{/asserts/js/Chart.min.js}"></script>
+</body>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>影片列表</title>
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/offcanvas/">
+    <style type="text/css">
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .centerBox {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            width: 22%;
+            height: 7%;
+            text-align: left;
+
+            font-family: "Fira Code Light";
+            font-size: 33px;
+        }
+
+    </style>
+</head>
+
+</html>

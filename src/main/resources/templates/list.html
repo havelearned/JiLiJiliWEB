@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>影片列表</title>
+		<!-- Bootstrap core CSS -->
+		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+		<style type="text/css">
+			/* Chart.js */
+			
+			@-webkit-keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			@keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			.chartjs-render-monitor {
+				-webkit-animation: chartjs-render-animation 0.001s;
+				animation: chartjs-render-animation 0.001s;
+			}
+		</style>
+	</head>
+
+	<body>
+		<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" th:replace="~{heandl/bar::#bar-hand}">
+			<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">Company name</a>
+			<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+			<ul class="navbar-nav px-3">
+				<li class="nav-item text-nowrap">
+					<a class="nav-link" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">Sign out</a>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="container-fluid">
+			<div class="row">
+				<nav th:replace="~{heandl/bar::#leftlist(activeUri='movie')}" class="col-md-2 d-none d-md-block bg-light sidebar">
+				</nav>
+
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+					<h2>
+						<a class="btn btn-sm btn-success "  href="movie/addmovie" th:href="@{/movie/addmovie}">添加影片</a>
+					</h2>
+					<div class="table-responsive">
+						<table class="table table-striped table-sm">
+							<thead>
+							<tr>
+								<th>电影id</th>
+								<th>电影名称</th>
+								<th>导演</th>
+								<th>主演</th>
+								<th>配角</th>
+								<th>上映时间</th>
+								<th>操作</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr th:each="mo:${pageInfo.getList()}">
+								<td th:text="${mo.getmId()}"></td>
+								<td th:text="${mo.getmMovieName()}"></td>
+								<td th:text="${mo.getmDirector()}"></td>
+								<td th:text="${mo.getmProtagonist()}"></td>
+								<td th:text="${mo.getmSupport()}"></td>
+								<td th:text="${#dates.format(mo.getmScreen(),'yyyy-MM-dd HH:mm')}"></td>
+								<td>
+									<a  class="btn btn-sm btn-primary" th:href="@{touchmove/}+${mo.mId}">修改</a>
+									<form th:action="${mo.mId}" method="post">
+										<input type="hidden" name="_method" value="delete">
+										<button class="btn btn-sm btn-danger" id="onDelete" th:type="submit">下架</button>
+									</form>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+						<nav aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								<li class="page-item">
+									<a class="page-link" href="list?page=1"  tabindex="1" >首页</a>
+								</li>
+
+								<li class="page-item">
+									<a class="page-link" th:href="@{list?page=}+${pageInfo.getPrePage()}">上一页</a>
+								</li>
+								<li class="page-item">
+									<button class="page-link" th:text="当前页：+${pageInfo.getPageNum()}"></button>
+								</li>
+								<li class="page-item">
+									<a class="page-link"  th:href="@{list?page=}+${pageInfo.getNextPage()}">下一页</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link"  th:href="@{list?page=}+${pageInfo.getEndRow()}">尾页</a>
+								</li>
+								<li class="page-item disabled">
+									<a class="page-link"  th:text="总页数：+${pageInfo.getPages()}" ></a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</main>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+        ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"
+				th:src="@{/asserts/js/jquery-3.2.1.slim.min.js}"></script>
+		<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/asserts/js/popper.min.js}"></script>
+		<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+
+		<!-- Icons -->
+		<script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
+		<script>
+			feather.replace()
+		</script>
+
+		<!-- Graphs -->
+		<script type="text/javascript" src="asserts/js/Chart.min.js" th:src="@{/asserts/js/Chart.min.js}"></script>
+	</body>
+
+</html>

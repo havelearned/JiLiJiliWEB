@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yinghua.application.mapper.RootMapper">
+  <resultMap id="BaseResultMap" type="com.yinghua.application.pojo.Root">
+    <result column="R_ID" jdbcType="INTEGER" property="rId" />
+    <result column="R_NO" jdbcType="VARCHAR" property="rNo" />
+    <result column="R_Name" jdbcType="VARCHAR" property="rName" />
+    <result column="R_MI" jdbcType="VARCHAR" property="rMi" />
+  </resultMap>
+
+
+  <select id="selectRootByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select  R_ID, R_NO, R_Name, R_MI from d_root where R_Name=#{rName}
+  </select>
+
+  <select id="selectRoots" resultMap="BaseResultMap">
+    select R_ID, R_NO, R_Name, R_MI from d_root
+  </select>
+
+  <insert id="insert" parameterType="com.yinghua.application.pojo.Root">
+    insert into d_root (R_ID, R_NO, R_Name, 
+      R_MI)
+    values (#{rId,jdbcType=INTEGER}, #{rNo,jdbcType=VARCHAR}, #{rName,jdbcType=VARCHAR}, 
+      #{rMi,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yinghua.application.pojo.Root">
+    insert into d_root
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rId != null">
+        R_ID,
+      </if>
+      <if test="rNo != null">
+        R_NO,
+      </if>
+      <if test="rName != null">
+        R_Name,
+      </if>
+      <if test="rMi != null">
+        R_MI,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rId != null">
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="rNo != null">
+        #{rNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rName != null">
+        #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rMi != null">
+        #{rMi,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

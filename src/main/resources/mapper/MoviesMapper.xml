@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yinghua.application.mapper.MoviesMapper">
+  <resultMap id="BaseResultMap" type="com.yinghua.application.pojo.Movies">
+    <result column="M_ID" jdbcType="INTEGER" property="mId" />
+    <result column="M_movie_name" jdbcType="VARCHAR" property="mMovieName" />
+    <result column="M_director" jdbcType="VARCHAR" property="mDirector" />
+    <result column="M_protagonist" jdbcType="VARCHAR" property="mProtagonist" />
+    <result column="M_support" jdbcType="VARCHAR" property="mSupport" />
+    <result column="M_screen" jdbcType="DATE" property="mScreen" />
+  </resultMap>
+
+  <select id="selectMoviesPage" resultMap="BaseResultMap">
+    select * from d_movies
+  </select>
+
+  <update id="UpdateMovies" parameterType="com.yinghua.application.pojo.Movies">
+    update d_movies set
+        M_movie_name=#{mMovieName},M_director=#{mDirector},M_protagonist=#{mProtagonist},M_support=#{mSupport},
+        M_screen=#{mScreen} where M_ID=#{mId};
+  </update>
+
+  <delete id="deleteMovies" parameterType="java.lang.Integer" >
+    delete from d_movies where M_ID=#{mId}
+  </delete>
+
+  <select id="selectMovies" resultMap="BaseResultMap">
+    select * from d_movies;
+  </select>
+
+  <select id="selectByid" resultMap="BaseResultMap">
+    select * from d_movies where M_ID=#{mId}
+  </select>
+
+  <select id="selectMaxID" resultType="int">
+    select max(M_ID) from d_movies;
+  </select>
+
+  <insert id="insert" parameterType="com.yinghua.application.pojo.Movies">
+    insert into d_movies (M_ID, M_movie_name, M_director, 
+      M_protagonist, M_support, M_screen
+      )
+    values (#{mId,jdbcType=INTEGER}, #{mMovieName,jdbcType=VARCHAR}, #{mDirector,jdbcType=VARCHAR}, 
+      #{mProtagonist,jdbcType=VARCHAR}, #{mSupport,jdbcType=VARCHAR}, #{mScreen,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yinghua.application.pojo.Movies">
+    insert into d_movies
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mId != null">
+        M_ID,
+      </if>
+      <if test="mMovieName != null">
+        M_movie_name,
+      </if>
+      <if test="mDirector != null">
+        M_director,
+      </if>
+      <if test="mProtagonist != null">
+        M_protagonist,
+      </if>
+      <if test="mSupport != null">
+        M_support,
+      </if>
+      <if test="mScreen != null">
+        M_screen,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mId != null">
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="mMovieName != null">
+        #{mMovieName,jdbcType=VARCHAR},
+      </if>
+      <if test="mDirector != null">
+        #{mDirector,jdbcType=VARCHAR},
+      </if>
+      <if test="mProtagonist != null">
+        #{mProtagonist,jdbcType=VARCHAR},
+      </if>
+      <if test="mSupport != null">
+        #{mSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="mScreen != null">
+        #{mScreen,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+</mapper>

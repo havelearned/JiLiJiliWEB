@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yinghua.application.mapper.CinemaMapper">
+  <resultMap id="BaseResultMap" type="com.yinghua.application.pojo.Cinema">
+    <result column="C_ID" jdbcType="INTEGER" property="cId" />
+    <result column="C_Cname" jdbcType="VARCHAR" property="cCname" />
+    <result column="C_SeatNumber" jdbcType="VARCHAR" property="cSeatnumber" />
+    <result column="C_Galleryful" jdbcType="INTEGER" property="cGalleryful" />
+  </resultMap>
+
+  <select id="selectCinemaById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from d_cinema where C_id=#{id}
+  </select>
+
+  <select id="selectCinema" resultMap="BaseResultMap" >
+    select * from d_cinema;
+  </select>
+  <insert id="insert" parameterType="com.yinghua.application.pojo.Cinema">
+    insert into d_cinema (C_ID, C_Cname, C_SeatNumber, 
+      C_Galleryful)
+    values (#{cId,jdbcType=INTEGER}, #{cCname,jdbcType=VARCHAR}, #{cSeatnumber,jdbcType=VARCHAR}, 
+      #{cGalleryful,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yinghua.application.pojo.Cinema">
+    insert into d_cinema
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cId != null">
+        C_ID,
+      </if>
+      <if test="cCname != null">
+        C_Cname,
+      </if>
+      <if test="cSeatnumber != null">
+        C_SeatNumber,
+      </if>
+      <if test="cGalleryful != null">
+        C_Galleryful,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cId != null">
+        #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="cCname != null">
+        #{cCname,jdbcType=VARCHAR},
+      </if>
+      <if test="cSeatnumber != null">
+        #{cSeatnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cGalleryful != null">
+        #{cGalleryful,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yinghua.application.mapper.TicketMapper">
+  <resultMap id="BaseResultMap" type="com.yinghua.application.pojo.Ticket">
+    <id column="T_ID" jdbcType="INTEGER" property="tId" />
+    <result column="T_card" jdbcType="VARCHAR" property="tCard" />
+    <result column="T_phone" jdbcType="VARCHAR" property="tPhone" />
+    <result column="T_gender" jdbcType="CHAR" property="tGender" />
+    <result column="T_nickname" jdbcType="VARCHAR" property="tNickname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    T_ID, T_card, T_phone, T_gender, T_nickname
+  </sql>
+
+  <select id="selectByPrimarys" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from d_ticket
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from d_ticket
+    where T_ID = #{tId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from d_ticket
+    where T_ID = #{tId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yinghua.application.pojo.Ticket">
+    insert into d_ticket (T_ID, T_card, T_phone, 
+      T_gender, T_nickname)
+    values (#{tId,jdbcType=INTEGER}, #{tCard,jdbcType=VARCHAR}, #{tPhone,jdbcType=VARCHAR}, 
+      #{tGender,jdbcType=CHAR}, #{tNickname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yinghua.application.pojo.Ticket">
+    insert into d_ticket
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tId != null">
+        T_ID,
+      </if>
+      <if test="tCard != null">
+        T_card,
+      </if>
+      <if test="tPhone != null">
+        T_phone,
+      </if>
+      <if test="tGender != null">
+        T_gender,
+      </if>
+      <if test="tNickname != null">
+        T_nickname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tId != null">
+        #{tId,jdbcType=INTEGER},
+      </if>
+      <if test="tCard != null">
+        #{tCard,jdbcType=VARCHAR},
+      </if>
+      <if test="tPhone != null">
+        #{tPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="tGender != null">
+        #{tGender,jdbcType=CHAR},
+      </if>
+      <if test="tNickname != null">
+        #{tNickname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yinghua.application.pojo.Ticket">
+    update d_ticket
+    <set>
+      <if test="tCard != null">
+        T_card = #{tCard,jdbcType=VARCHAR},
+      </if>
+      <if test="tPhone != null">
+        T_phone = #{tPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="tGender != null">
+        T_gender = #{tGender,jdbcType=CHAR},
+      </if>
+      <if test="tNickname != null">
+        T_nickname = #{tNickname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where T_ID = #{tId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yinghua.application.pojo.Ticket">
+    update d_ticket
+    set T_card = #{tCard,jdbcType=VARCHAR},
+      T_phone = #{tPhone,jdbcType=VARCHAR},
+      T_gender = #{tGender,jdbcType=CHAR},
+      T_nickname = #{tNickname,jdbcType=VARCHAR}
+    where T_ID = #{tId,jdbcType=INTEGER}
+  </update>
+</mapper>
