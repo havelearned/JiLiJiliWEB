@@ -1,5 +1,7 @@
 package com.yinghua.application.pojo;
 
+import io.swagger.annotations.ApiModel;
+
 import java.util.Date;
 
 /**
@@ -9,6 +11,8 @@ import java.util.Date;
  * @params
  * @data 2020/12/14 18:37
  **/
+
+@ApiModel("Orderforgoods 订单")
 public class Orderforgoods {
     private String oId;
 

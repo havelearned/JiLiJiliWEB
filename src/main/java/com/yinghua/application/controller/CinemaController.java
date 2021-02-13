@@ -23,8 +23,10 @@ import java.util.List;
 
 @Controller
 public class CinemaController {
+
     @Autowired
     CinemaService cinemaService;
+
     List<Cinema> cinemas;
 
     @Autowired

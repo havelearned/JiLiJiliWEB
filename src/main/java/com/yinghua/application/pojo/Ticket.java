@@ -1,5 +1,7 @@
 package com.yinghua.application.pojo;
 
+import io.swagger.annotations.ApiModel;
+
 /**
  * @author Luojiaju
  * @description: 购票者实体类
@@ -7,6 +9,8 @@ package com.yinghua.application.pojo;
  * @params
  * @data 2020/12/14 18:37
  **/
+
+@ApiModel("Root 购票者对象")
 public class Ticket {
     private Integer tId;
 

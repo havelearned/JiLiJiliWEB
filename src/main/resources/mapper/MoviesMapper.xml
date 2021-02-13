@@ -10,6 +10,26 @@
     <result column="M_screen" jdbcType="DATE" property="mScreen" />
   </resultMap>
 
+  <resultMap id="BaseResultAndPhotoMap" type="com.yinghua.application.pojo.Movies">
+    <result column="M_ID" jdbcType="INTEGER" property="mId" />
+    <result column="M_movie_name" jdbcType="VARCHAR" property="mMovieName" />
+    <result column="M_director" jdbcType="VARCHAR" property="mDirector" />
+    <result column="M_protagonist" jdbcType="VARCHAR" property="mProtagonist" />
+    <result column="M_support" jdbcType="VARCHAR" property="mSupport" />
+    <result column="M_screen" jdbcType="DATE" property="mScreen" />
+   <collection property="photo" ofType="com.yinghua.application.pojo.Photo">
+    <id property="p_id" column="p_id"/>
+     <result property="p_name" column="p_name"/>
+     <result property="p_photo" column="p_photo"/>
+   </collection>
+  </resultMap>
+
+  <!--返回电影字段和图片地址字段-->
+  <select id="QueryMovieAndPhoto" resultMap="BaseResultAndPhotoMap">
+   select * from d_movies,d_photo where d_movies.m_id= d_photo.P_id
+  </select>
+
+  <!--,d_photo where d_movies.M_ID=d_photo.P_id;-->
   <select id="selectMoviesPage" resultMap="BaseResultMap">
     select * from d_movies
   </select>

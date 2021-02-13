@@ -8,6 +8,14 @@
     <result column="C_Galleryful" jdbcType="INTEGER" property="cGalleryful" />
   </resultMap>
 
+  <resultMap id="BaseResultMapAndPhoto" type="com.yinghua.application.pojo.Cinema">
+    <result column="C_ID" jdbcType="INTEGER" property="cId" />
+    <result column="C_Cname" jdbcType="VARCHAR" property="cCname" />
+    <result column="C_SeatNumber" jdbcType="VARCHAR" property="cSeatnumber" />
+    <result column="C_Galleryful" jdbcType="INTEGER" property="cGalleryful" />
+
+  </resultMap>
+
   <select id="selectCinemaById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select * from d_cinema where C_id=#{id}
   </select>

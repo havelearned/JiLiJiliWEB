@@ -1,5 +1,6 @@
 package com.yinghua.application.pojo;
 
+import io.swagger.annotations.ApiModel;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -11,6 +12,8 @@ import java.util.Date;
  * @params
  * @data 2020/12/14 18:37
  **/
+
+@ApiModel("Movies 电影对象")
 public class Movies {
     private Integer mId;
 
@@ -24,6 +27,26 @@ public class Movies {
 
     private Date mScreen;
 
+    public Photo photo;
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
+
+    /* private Photo photo;
+
+        public Photo getPhoto() {
+            return photo;
+        }
+
+        public void setPhoto(Photo photo) {
+            this.photo = photo;
+        }
+    */
     public Movies() {
     }
 
@@ -35,6 +58,16 @@ public class Movies {
         this.mSupport = mSupport;
         this.mScreen = mScreen;
     }
+
+ /*   public Movies(Integer mId, String mMovieName, String mDirector, String mProtagonist, String mSupport, Date mScreen, Photo photo) {
+        this.mId = mId;
+        this.mMovieName = mMovieName;
+        this.mDirector = mDirector;
+        this.mProtagonist = mProtagonist;
+        this.mSupport = mSupport;
+        this.mScreen = mScreen;
+        this.photo = photo;
+    }*/
 
     public Integer getmId() {
         return mId;
@@ -93,6 +126,7 @@ public class Movies {
                 ", mProtagonist='" + mProtagonist + '\'' +
                 ", mSupport='" + mSupport + '\'' +
                 ", mScreen=" + mScreen +
+                ", photo=" + photo +
                 '}';
     }
 }

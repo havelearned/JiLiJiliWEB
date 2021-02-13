@@ -1,6 +1,7 @@
 package com.yinghua.application.mapper;
 
 import com.yinghua.application.pojo.Movies;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,6 +16,11 @@ import java.util.List;
 
 @Repository
 public interface MoviesMapper {
+
+
+    List<Movies>QueryMovieAndPhoto();
+
+
     /**
      * @return int
      * @description: selectMaxID  查询条目总数

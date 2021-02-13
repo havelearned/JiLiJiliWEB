@@ -1,5 +1,8 @@
 package com.yinghua.application.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * @author Luojiaju
  * @description: 电影院实体类
@@ -7,6 +10,8 @@ package com.yinghua.application.pojo;
  * @params
  * @data 2020/12/14 18:37
  **/
+
+@ApiModel("Cinema电影院")
 public class Cinema {
     private Integer cId;
 

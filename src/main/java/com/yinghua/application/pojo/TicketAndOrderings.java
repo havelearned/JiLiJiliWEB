@@ -1,5 +1,7 @@
 package com.yinghua.application.pojo;
 
+import io.swagger.annotations.ApiModel;
+
 import java.util.Date;
 
 /**
@@ -9,6 +11,9 @@ import java.util.Date;
  * @crete 2020-12-19-17:52-37
  * @Version 1.0
  */
+
+
+@ApiModel("TicketAndOrderings 购票者订单监控对象")
 public class TicketAndOrderings {
     private String username;
     private String userPhone;

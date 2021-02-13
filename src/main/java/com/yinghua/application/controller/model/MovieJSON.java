@@ -5,22 +5,24 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yinghua.application.mapper.MoviesMapper;
+import com.yinghua.application.mapper.PhotoMapper;
 import com.yinghua.application.pojo.*;
 import com.yinghua.application.service.CinemaService;
 import com.yinghua.application.service.MovieService;
 import com.yinghua.application.service.OrderforgoodsService;
 import com.yinghua.application.service.TicketService;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController()
 public class MovieJSON {
     Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
@@ -37,86 +39,69 @@ public class MovieJSON {
 
     @Autowired
     MoviesMapper moviesMapper;
-    /*
-     *响应单个影片
-     * */
-    @ResponseBody
-    @GetMapping("/modelmovie/param")
-    public String  doModelMovieParam(@RequestParam("movieId") Integer moieid){
-        logger.trace("odModelOrderForGoodsService:响应单个影片+分页");
-        PageHelper.startPage(moieid,5);
-        List<Movies> movies1 = moviesMapper.selectMoviesPage();
-        PageInfo pageInfo = new PageInfo(movies1);
-        List list = pageInfo.getList();
-//        Movies movies = movieService.selectMovieById(moieid);
-        return JSON.toJSONString(list);
+
+    @Autowired
+    PhotoMapper photoMapper;
+
+    @ApiOperation("响应JSON加图片影片+分页")
+    @GetMapping( value = "/modelmovie/param",produces="application/json;charset=utf-8")
+    public   List<Movies>     doModelMovieParam(@RequestParam("start") Integer start,
+                                     @RequestParam("count") Integer count){
+
+        logger.trace("odModelOrderForGoodsService:响应JSON 加 图片 影片+分页");
+        PageHelper.startPage(start,count);
+
+        List<Movies> movies1 = moviesMapper.QueryMovieAndPhoto();
+
+        return movies1;
     }
 
-    /*
-     *响应单个电影院
-     * */
-    @ResponseBody
-    @GetMapping("/modelcinema/param")
-    public String  doModelcinemaeParam(@RequestParam("cinemaId") Integer cinemaId){
+
+    @ApiOperation("更具id获取电影院信息")
+    @GetMapping(value = "/modelcinema/param",produces="application/json;charset=utf-8")
+    public Cinema  doModelcinemaeParam(@RequestParam("cinemaId") Integer cinemaId){
         logger.trace("odModelOrderForGoodsService:响应单个电影院");
         Cinema cinema = cinemaService.QueryCinemaById(cinemaId);
-        return JSON.toJSONString(cinema);
+        return cinema;
     }
 
 
 
-
-
-    /*
-     *响应订单
-     * */
-    @ResponseBody
+    @ApiOperation("所有的响应订单信息")
     @GetMapping("/modelorderforgoodsService")
-    public String  odModelOrderForGoodsService(){
+    public   List<Orderforgoods>  odModelOrderForGoodsService(){
         logger.trace("odModelOrderForGoodsService:响应订单");
         List<Orderforgoods> orderforgoodsList = orderforgoodsService.doQueryOrders();
-        String orderForGoodsListString = JSON.toJSONString(orderforgoodsList);
 
-        return orderForGoodsListString;
+        return orderforgoodsList;
     }
 
-    /*
-     *响应购票者
-     * */
-    @ResponseBody
+    @ApiOperation("所有的购票者信息")
     @GetMapping("/modelticket")
-    public String  odmModelTicket(){
+    public  List<Ticket>  odmModelTicket(){
         logger.trace("odModelOrderForGoodsService:响应购票者");
         List<Ticket> ticketList = ticketService.doQueryTickets();
-        String ticketString = JSON.toJSONString(ticketList);
 
-        return ticketString;
+        return ticketList;
     }
 
-    /**
-     * 响应影片
-     * */
-    @ResponseBody
+
+    @ApiOperation("所有的影片信息")
     @GetMapping("/modelmmovie")
-    public String doModelmmovie(){
+    public  List<Movies>  doModelmmovie(){
         logger.trace("odModelOrderForGoodsService:响应影片");
         List<Movies> listMovies = movieService.doMovies();
-        String movies = JSON.toJSONString(listMovies);
 
-        return movies;
+        return listMovies;
     }
 
 
-    /*
-    *响应电源院
-    * */
-    @ResponseBody
+    @ApiOperation("提供目前所有的电影院")
     @GetMapping("/modelcinema")
-    public String doModelCinema(){
-        logger.trace("odModelOrderForGoodsService:响应电源院");
+    public List<Cinema> doModelCinema(){
+        logger.trace("odModelOrderForGoodsService:响应电影院");
         List<Cinema> listCinemas = cinemaService.queryCinema();
-        String cinemas = JSON.toJSONString(listCinemas);
 
-        return cinemas;
+        return listCinemas;
     }
 }
