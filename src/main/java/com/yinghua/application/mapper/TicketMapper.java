@@ -15,6 +15,7 @@ import java.util.List;
 @Repository
 public interface TicketMapper {
 
+    Ticket QueryTicketByPhone(String ticketPhone);
 
     int deleteByPrimaryKey(Integer tId);
 

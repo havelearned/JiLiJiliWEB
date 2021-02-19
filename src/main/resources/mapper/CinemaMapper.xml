@@ -6,6 +6,7 @@
     <result column="C_Cname" jdbcType="VARCHAR" property="cCname" />
     <result column="C_SeatNumber" jdbcType="VARCHAR" property="cSeatnumber" />
     <result column="C_Galleryful" jdbcType="INTEGER" property="cGalleryful" />
+    <result column="C_Image" jdbcType="VARCHAR" property="c_Image" />
   </resultMap>
 
   <resultMap id="BaseResultMapAndPhoto" type="com.yinghua.application.pojo.Cinema">

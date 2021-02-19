@@ -22,6 +22,12 @@ public class TicketService {
     @Autowired
     TicketMapper ticketMapper;
 
+    //根据手机号查询
+    public Ticket doQueryTicketByPhone(String ticketPhone){
+        return ticketMapper.QueryTicketByPhone(ticketPhone);
+
+    }
+
     //更具id查询购票者
     public Ticket  doQueryTicket(Integer id){
         logger.trace("TicketService.doQueryTicket 更具id查询购票者");

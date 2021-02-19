@@ -44,32 +44,29 @@ public class MovieJSON {
     PhotoMapper photoMapper;
 
     @ApiOperation("响应JSON加图片影片+分页")
-    @GetMapping( value = "/modelmovie/param",produces="application/json;charset=utf-8")
-    public   List<Movies>     doModelMovieParam(@RequestParam("start") Integer start,
-                                     @RequestParam("count") Integer count){
+    @GetMapping(value = "/modelmovie/param", produces = "application/json;charset=utf-8")
+    public List<Movies> doModelMovieParam(@RequestParam("start") Integer start,
+                                          @RequestParam("count") Integer count) {
 
         logger.trace("odModelOrderForGoodsService:响应JSON 加 图片 影片+分页");
-        PageHelper.startPage(start,count);
+        PageHelper.startPage(start, count);
 
-        List<Movies> movies1 = moviesMapper.QueryMovieAndPhoto();
-
-        return movies1;
+        return moviesMapper.QueryMovieAndPhoto();
     }
 
 
     @ApiOperation("更具id获取电影院信息")
-    @GetMapping(value = "/modelcinema/param",produces="application/json;charset=utf-8")
-    public Cinema  doModelcinemaeParam(@RequestParam("cinemaId") Integer cinemaId){
+    @GetMapping(value = "/modelcinema/param", produces = "application/json;charset=utf-8")
+    public Cinema doModelcinemaeParam(@RequestParam("cinemaId") Integer cinemaId) {
         logger.trace("odModelOrderForGoodsService:响应单个电影院");
         Cinema cinema = cinemaService.QueryCinemaById(cinemaId);
         return cinema;
     }
 
 
-
     @ApiOperation("所有的响应订单信息")
     @GetMapping("/modelorderforgoodsService")
-    public   List<Orderforgoods>  odModelOrderForGoodsService(){
+    public List<Orderforgoods> odModelOrderForGoodsService() {
         logger.trace("odModelOrderForGoodsService:响应订单");
         List<Orderforgoods> orderforgoodsList = orderforgoodsService.doQueryOrders();
 
@@ -78,7 +75,7 @@ public class MovieJSON {
 
     @ApiOperation("所有的购票者信息")
     @GetMapping("/modelticket")
-    public  List<Ticket>  odmModelTicket(){
+    public List<Ticket> odmModelTicket() {
         logger.trace("odModelOrderForGoodsService:响应购票者");
         List<Ticket> ticketList = ticketService.doQueryTickets();
 
@@ -88,7 +85,7 @@ public class MovieJSON {
 
     @ApiOperation("所有的影片信息")
     @GetMapping("/modelmmovie")
-    public  List<Movies>  doModelmmovie(){
+    public List<Movies> doModelmmovie() {
         logger.trace("odModelOrderForGoodsService:响应影片");
         List<Movies> listMovies = movieService.doMovies();
 
@@ -98,7 +95,7 @@ public class MovieJSON {
 
     @ApiOperation("提供目前所有的电影院")
     @GetMapping("/modelcinema")
-    public List<Cinema> doModelCinema(){
+    public List<Cinema> doModelCinema() {
         logger.trace("odModelOrderForGoodsService:响应电影院");
         List<Cinema> listCinemas = cinemaService.queryCinema();
 

@@ -23,6 +23,13 @@
     from d_ticket
     where T_ID = #{tId,jdbcType=INTEGER}
   </select>
+
+
+  <select id="QueryTicketByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select *  from d_ticket
+    where T_phone = #{tPhone,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from d_ticket
     where T_ID = #{tId,jdbcType=INTEGER}

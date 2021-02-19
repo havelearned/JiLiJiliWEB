@@ -4,6 +4,7 @@ import com.yinghua.application.mapper.MoviesMapper;
 import com.yinghua.application.pojo.Movies;
 import com.yinghua.application.pojo.Photo;
 import com.yinghua.application.service.PhotoService;
+import com.yinghua.application.util.EmailUtil;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,25 @@ public class ApplicationTests2 {
     @Autowired
     PhotoService photoService;
 
+    @Autowired
+    EmailUtil emailUtil;
+
+
+
+    /**
+     * 测试 邮箱
+
+    @Test
+    public void Test04(){
+       emailUtil=new EmailUtil();
+        int i = emailUtil.SimpleEmail("1939571437@qq.com");
+
+    }
+     * */
+
+    /**
+     * 测试 图片和电影
+     * */
     @Test
     public void Test03(){
         List<Movies> movies = moviesMapper.QueryMovieAndPhoto();

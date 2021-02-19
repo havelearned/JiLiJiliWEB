@@ -61,4 +61,15 @@ public class Ticket {
     public void settNickname(String tNickname) {
         this.tNickname = tNickname == null ? null : tNickname.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "tId=" + tId +
+                ", tCard='" + tCard + '\'' +
+                ", tPhone='" + tPhone + '\'' +
+                ", tGender='" + tGender + '\'' +
+                ", tNickname='" + tNickname + '\'' +
+                '}';
+    }
 }

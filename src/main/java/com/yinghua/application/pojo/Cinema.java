@@ -19,7 +19,19 @@ public class Cinema {
 
     private String cSeatnumber;
 
+    private String c_Image;
+
+
+
     private Integer cGalleryful;
+
+    public String getC_Image() {
+        return c_Image;
+    }
+
+    public void setC_Image(String c_Image) {
+        this.c_Image = c_Image;
+    }
 
     public Integer getcId() {
         return cId;
